@@ -1,0 +1,42 @@
+body,
+html {
+  height: 100%;
+  margin: 0;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.header {
+  background-color: #f0f0f0;
+  padding: 10px;
+}
+
+.messages {
+  flex: 1;
+  overflow-y: auto; /* Enable scrolling for overflow */
+  padding: 10px;
+}
+
+.message {
+  margin-bottom: 10px;
+}
+
+.input-container {
+  display: flex;
+  padding: 10px;
+  background-color: #f0f0f0;
+}
+
+input {
+  flex: 1;
+  padding: 5px;
+  margin-right: 10px;
+}
+
+button {
+  padding: 5px 10px;
+}

@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import io from "socket.io-client";
+// import "./App.css";
+// import AppRoutes from "./routes";
+import RoutesV5 from "./routes/V5Routes";
+import { AuthProvider } from "./contexts/authContext";
+import { MessagesProvider } from "./contexts/messagesContext";
+// const socket = io(`http://${window.location.hostname}:4000`);
+
+// const socket = io("http://localhost:4000");
 
 function App() {
+  const [message, setMessage] = useState("");
+  useEffect(() => {
+    // listening...
+    // socket.on("sendMessage", (messageFromServer) => {
+    //   console.log(messageFromServer);
+    // });
+  }, []);
+
+  const onSendBtn = () => {
+    //emitting message or sending to the server.
+    // socket.emit("sendMessage", message);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <MessagesProvider>
+        <RoutesV5 />
+      </MessagesProvider>
+    </AuthProvider>
   );
+
+  {
+    // return <AppRoutes />;
+    //   <div className="App">
+    //   <input type={"text"} onChange={(e) => setMessage(e.target.value)}></input>
+    //   <button onClick={() => onSendBtn()} disabled={!message}>
+    //     Send
+    //   </button>
+    // </div>
+  }
 }
 
 export default App;

@@ -1,0 +1,96 @@
+/* 
+        REGISTER PAGE.
+*/
+
+.signupContainer {
+  background: #f5f7fb;
+  width: 100%;
+  /* later */
+  height: 100%;
+}
+.signupForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.singupHeader {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: flex-start; */
+  /* gap: 10px; */
+}
+
+.signupCard {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+}
+.signupCard button {
+  width: 100%;
+  color: white;
+  background-color: #7269ef;
+  border: 1px solid #7269ef;
+  cursor: pointer;
+  margin: 10px 0px 10px 0px;
+  /*
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #5b54bf;
+  --bs-btn-active-border-color: #564fb3;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #7269ef;
+  --bs-btn-disabled-border-color: #7269ef;
+  */
+}
+.signupCard button:hover {
+  background-color: #6159cb;
+  border: 1px solid #5b54bf;
+}
+
+.signupCard button:focus {
+  box-shadow: rgb(135, 128, 241);
+}
+
+.signupCard .formGroup p {
+  color: red;
+}
+
+.signupCard > p {
+  margin-top: 20px;
+}
+.signupCard > button {
+  margin-top: 20px;
+}
+.signupCard input:focus {
+  /* border: 1px solid red; */
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+.formInputGroup {
+  display: flex;
+}
+
+.formInputGroup input {
+  width: 100%;
+}
+
+.signupFooter {
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+.signupFooter button {
+  cursor: pointer;
+}
+/* apply on even odd */
+.signupFooter p:nth-child(even) {
+  margin-top: 20px;
+}
