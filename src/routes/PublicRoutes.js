@@ -1,8 +1,14 @@
 import React, { useContext } from "react";
 import { Switch, Route, NavLink } from "react-router-dom";
 import AuthContext from "../contexts/authContext";
-import { Home, About, Users, Chats } from "../components V5";
-import TodoApp from "../Todo V5";
+import {
+  Home,
+  About,
+  Users,
+  Chats,
+  UserList,
+  TodoList,
+} from "../components V5";
 const mainRoutes = [
   {
     to: "/",
@@ -21,8 +27,12 @@ const mainRoutes = [
     name: "Chats",
   },
   {
+    to: "/userlist",
+    name: "User List",
+  },
+  {
     to: "/todo",
-    name: "Todo Task",
+    name: "Todo",
   },
   {
     to: "/test",
@@ -70,7 +80,7 @@ const PublicRoute = () => {
               <li key={index}>
                 <NavLink
                   to={menu.to}
-                  // exact={menu.to === "/home" && true}
+                  exact={true}
                   style={{
                     textDecoration: "none",
                   }}
@@ -118,8 +128,12 @@ const PublicRoute = () => {
             <Chats />
           </Route>
 
+          <Route path="/userlist">
+            <UserList />
+          </Route>
+
           <Route path="/todo">
-            <TodoApp />
+            <TodoList />
           </Route>
 
           <Route path={`*`} exact>

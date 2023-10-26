@@ -1,8 +1,7 @@
+import React, { useState, useCallback } from "react";
 import { Intent, Button } from "@blueprintjs/core";
-import React, { useEffect } from "react";
-import MaterialTable from "material-table";
+import ShowList from "./ShowList";
 import Cruds from "./Cruds";
-import { useState } from "react";
 
 const array = [
   { id: 1, username: "zain 1", email: "zain@gmail.com" },
@@ -10,22 +9,16 @@ const array = [
   { id: 3, username: "zain 1", email: "zain@gmail.com" },
   { id: 4, username: "zain 1", email: "zain@gmail.com" },
   { id: 5, username: "zain 1", email: "zain@gmail.com" },
-  // { id: 6, username: "zain 1", email: "zain@gmail.com" },
-  // { id: 7, username: "zain 1", email: "zain@gmail.com" },
-  // { id: 8, username: "zain 1", email: "zain@gmail.com" },
-  // { id: 9, username: "zain 1", email: "zain@gmail.com" },
-  // { id: 10, username: "zain 1", email: "zain@gmail.com" },
-  // { id: 11, username: "zain 1", email: "zain@gmail.com" },
-  // { id: 12, username: "zain 1", email: "zain@gmail.com" },
-  // { id: 13, username: "zain 1", email: "zain@gmail.com" },
+  { id: 6, username: "zain 1", email: "zain@gmail.com" },
+  { id: 7, username: "zain 1", email: "zain@gmail.com" },
+  { id: 8, username: "zain 1", email: "zain@gmail.com" },
+  { id: 9, username: "zain 1", email: "zain@gmail.com" },
+  { id: 10, username: "zain 1", email: "zain@gmail.com" },
+  { id: 11, username: "zain 1", email: "zain@gmail.com" },
+  { id: 12, username: "zain 1", email: "zain@gmail.com" },
+  { id: 13, username: "zain 1", email: "zain@gmail.com" },
 ];
 
-const tableCols = [
-  { title: "ID", field: "id" },
-  { title: "User Name", field: "username" },
-  { title: "Email", field: "email" },
-  { title: "Actions", field: "actions" },
-];
 const initialState = {
   mode: "",
   id: -1,
@@ -33,9 +26,9 @@ const initialState = {
 const Add_Edit = () => {
   const [state, setState] = useState(initialState);
   const [tableData, setTableData] = useState(array);
-  useEffect(() => {
-    getTableList();
-  }, [state]);
+  // useEffect(() => {
+  // getTableList();
+  // }, [state]);
 
   const getTableList = () => {
     console.log("calling get tbl list");
@@ -46,7 +39,7 @@ const Add_Edit = () => {
         return {
           ...list,
           actions: (
-            <div>
+            <div key={list.id}>
               <Button
                 intent={Intent.PRIMARY}
                 onClick={() => {
@@ -97,6 +90,7 @@ const Add_Edit = () => {
           ),
         };
       });
+    return tableList;
     setTableData(tableList);
   };
   const setTableList = (tableList) => {
@@ -105,56 +99,77 @@ const Add_Edit = () => {
   const onCloseCrud = () => {
     setState(initialState);
   };
+
+  const onDelete = () => {
+    const requiredList =
+      Array.isArray(tableData) &&
+      tableData.length > 0 &&
+      tableData.filter((list) => list.id !== state.id);
+    setTableList(requiredList);
+    onCloseCrud();
+  };
+
+  const onUpdate = (username, email) => {
+    const requiredList =
+      Array.isArray(tableData) &&
+      tableData.length > 0 &&
+      tableData.map((list) => {
+        if (list.id === state.id) {
+          return {
+            ...list,
+            username: username,
+            email: email,
+          };
+        } else {
+          return list;
+        }
+      });
+
+    setTableList(requiredList);
+    onCloseCrud();
+  };
+
+  const onSave = useCallback(
+    (username, email) => {
+      const prevList =
+        Array.isArray(tableData) && tableData.length > 0 ? [...tableData] : [];
+      const listData = {
+        id: prevList.length + 1,
+        username,
+        email,
+      };
+      prevList.push(listData);
+      setTableList(prevList);
+      onCloseCrud();
+    },
+    [tableData]
+  );
+  const onChangeState = (data) => {
+    setState((prev) => {
+      return {
+        ...prev,
+        ...data,
+      };
+    });
+  };
   return (
     <div
       style={{
         width: "1000px",
         margin: "auto",
+        marginTop: "10px",
       }}
     >
-      <div
-        style={{
-          textAlign: "right",
-          margin: "0px 0px 10px 0px",
-        }}
-      >
-        <Button
-          onClick={() => {
-            setState((prev) => {
-              return {
-                ...prev,
-                mode: "create",
-              };
-            });
-            console.log("calling edit");
-          }}
-        >
-          Add New List
-        </Button>
-      </div>
-      <div>
-        <Cruds
-          parentState={state}
-          list={tableData}
-          setTableList={setTableList}
-          onClose={onCloseCrud}
-        />
-      </div>
+      <ShowList tableData={tableData} onChangeState={onChangeState} />
 
-      <div>
-        <MaterialTable
-          title={"Users List"}
-          columns={tableCols}
-          data={
-            Array.isArray(tableData) && tableData.length > 0 ? tableData : []
-          }
-          options={{
-            padding: "dense",
-            pageSize: 5,
-            maxBodyHeight: 500,
-          }}
-        />
-      </div>
+      <Cruds
+        parentState={state}
+        list={tableData}
+        onClose={onCloseCrud}
+        onSave={onSave}
+        onUpdate={onUpdate}
+        onDelete={onDelete}
+      />
     </div>
   );
 };
