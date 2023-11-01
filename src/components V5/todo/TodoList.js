@@ -1,5 +1,7 @@
 import { H5, FormGroup, InputGroup, Button, Intent } from '@blueprintjs/core';
 import React, { useState }                           from 'react';
+import { useDispatch }                               from 'react-redux';
+import { login, logout }                             from '../../redux/auth'
 
 const initialState = {
   items: [],
@@ -8,7 +10,7 @@ const initialState = {
   name: "",
   editIndex: -1,
 };
-const TodoList = ()=>{
+const TodoList = () => {
   const [state, setState] = useState(initialState);
 
   const addItem = () => {
@@ -23,7 +25,8 @@ const TodoList = ()=>{
           isEdit: false,
         };
       });
-    } else {
+    }
+    else {
       prevItems.push({ id: state.items.length + 1, name: state.name });
       setState((prev) => {
         return {
@@ -76,70 +79,71 @@ const TodoList = ()=>{
 
 
   return <div
-    style={{
+    style={ {
       display: "flex",
       alignItems: "center",
       flexDirection: "column",
       margin: "20px 0px 20px 20px",
-    }}
+    } }
   >
     <div>
       <H5>Todo App for Items</H5>
+
       <FormGroup
         label="Item Name"
         labelFor="text-input"
-        labelInfo={<span style={{ color: "red" }}>*</span>}
+        labelInfo={ <span style={ { color: "red" } }>*</span> }
       >
-        <div style={{ display: "flex", gap: "10px" }}>
+        <div style={ { display: "flex", gap: "10px" } }>
           <InputGroup
-            value={state.name}
+            value={ state.name }
             name="name"
             placeholder="Enter Name of Item"
-            onChange={(e) => onChangeInput(e)}
+            onChange={ (e) => onChangeInput(e) }
           />
           <Button
-            onClick={addItem}
-            intent={Intent.PRIMARY}
-            disabled={!state.name.length > 0}
+            onClick={ addItem }
+            intent={ Intent.PRIMARY }
+            disabled={ !state.name.length > 0 }
           >
-            {state.isEdit ? "Update" : "Save"}
+            { state.isEdit ? "Update" : "Save" }
           </Button>
         </div>
       </FormGroup>
     </div>
 
     <div>
-      {state.items.length > 0 &&
+      { state.items.length > 0 &&
         state.items.map((item, index) => {
           return (
             <div
-              key={item.id}
-              style={{
+              key={ item.id }
+              style={ {
                 display: "flex",
                 gap: "10px",
                 marginBottom: "20px",
-              }}
+              } }
             >
-              <H5>{item.name}</H5>
+              <H5>{ item.name }</H5>
               <div>
                 <Button
-                  style={{ marginLeft: "10px" }}
-                  intent={Intent.SUCCESS}
-                  onClick={() => onEdit(index)}
+                  style={ { marginLeft: "10px" } }
+                  intent={ Intent.SUCCESS }
+                  onClick={ () => onEdit(index) }
                 >
                   Edit
                 </Button>
                 <Button
-                  style={{ marginLeft: "10px" }}
-                  intent={Intent.DANGER}
-                  onClick={() => deleteItem(index)}
+                  style={ { marginLeft: "10px" } }
+                  intent={ Intent.DANGER }
+                  onClick={ () => deleteItem(index) }
                 >
                   Delete
                 </Button>
               </div>
             </div>
           );
-        })}
+        }) }
     </div>
   </div>
 }

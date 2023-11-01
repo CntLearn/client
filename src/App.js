@@ -1,10 +1,14 @@
-import { useEffect, useState } from "react";
-import io from "socket.io-client";
+import React, { useEffect, useState } from "react";
+import { Provider }                   from 'react-redux';
+import store                          from './redux'
+import { ToastContainer }             from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import io                             from "socket.io-client";
 // import "./App.css";
 // import AppRoutes from "./routes";
-import RoutesV5 from "./routes/V5Routes";
-import { AuthProvider } from "./contexts/authContext";
-import { MessagesProvider } from "./contexts/messagesContext";
+import RoutesV5                       from "./routes/V5Routes";
+import { AuthProvider }               from "./contexts/authContext";
+import { MessagesProvider }           from "./contexts/messagesContext";
 // const socket = io(`http://${window.location.hostname}:4000`);
 
 // const socket = io("http://localhost:4000");
@@ -24,11 +28,19 @@ function App() {
   };
 
   return (
-    <AuthProvider>
-      <MessagesProvider>
-        <RoutesV5 />
-      </MessagesProvider>
-    </AuthProvider>
+    <React.Fragment>
+      <Provider store={ store }>
+        <AuthProvider>
+          <MessagesProvider>
+            <RoutesV5/>
+          </MessagesProvider>
+        </AuthProvider>
+      </Provider>
+
+      <ToastContainer/>
+
+    </React.Fragment>
+
   );
 
   {

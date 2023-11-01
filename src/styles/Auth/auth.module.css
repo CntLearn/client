@@ -30,9 +30,9 @@
 }
 .signupCard button {
   width: 100%;
-  color: white;
-  background-color: #7269ef;
-  border: 1px solid #7269ef;
+  /*color: white;*/
+  /*background-color: #7269ef;*/
+  /*border: 1px solid #7269ef;*/
   cursor: pointer;
   margin: 10px 0px 10px 0px;
   /*
@@ -48,7 +48,7 @@
 }
 .signupCard button:hover {
   background-color: #6159cb;
-  border: 1px solid #5b54bf;
+  /*border: 1px solid #5b54bf;*/
 }
 
 .signupCard button:focus {
@@ -73,6 +73,7 @@
   display: flex;
   flex-direction: column;
   row-gap: 8px;
+  margin-top: 10px;
 }
 
 .formInputGroup {
@@ -81,6 +82,7 @@
 
 .formInputGroup input {
   width: 100%;
+  padding: 5px 10px;
 }
 
 .signupFooter {

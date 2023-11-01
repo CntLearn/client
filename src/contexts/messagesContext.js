@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { messages } from "../utils";
+import { messages } from "../utils/messages";
 const MessagesContext = createContext();
 
 const MessagesProvider = (props) => {

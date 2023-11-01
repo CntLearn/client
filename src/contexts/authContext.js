@@ -2,9 +2,9 @@ import { createContext, useState } from "react";
 const AuthContext = createContext();
 
 const AuthProvider = (props) => {
-  let user = JSON.parse(localStorage.getItem("user"));
+  // let user = JSON.parse(localStorage.getItem("user"));
 
-  const [state, setState] = useState(user);
+  const [state, setState] = useState('ddd');
   return (
     <AuthContext.Provider value={[state, setState]}>
       {props.children}

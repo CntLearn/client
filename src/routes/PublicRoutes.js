@@ -1,6 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext }      from "react";
+import { useDispatch }            from 'react-redux';
 import { Switch, Route, NavLink } from "react-router-dom";
-import AuthContext from "../contexts/authContext";
+import AuthContext                from "../contexts/authContext";
 import {
   Home,
   About,
@@ -8,7 +9,9 @@ import {
   Chats,
   UserList,
   TodoList,
-} from "../components V5";
+}                                 from "../components V5";
+import { logout }                 from '../redux/auth';
+
 const mainRoutes = [
   {
     to: "/",
@@ -42,29 +45,30 @@ const mainRoutes = [
 
 const PublicRoute = () => {
   const [authState, setAuthState] = useContext(AuthContext);
+  const dispatch = useDispatch();
 
   const onLogOut = () => {
     localStorage.removeItem("user");
-    setAuthState(null);
+    dispatch(logout())
   };
   return (
     <div
-      style={{
+      style={ {
         display: "flex",
         flexDirection: "row",
         width: "100vw",
-      }}
+      } }
     >
       <nav
-        style={{
+        style={ {
           width: "100px",
           // background: "#DCDCDC",
           background: "#f0f0f0",
           // display: "flex",
-        }}
+        } }
       >
         <ul
-          style={{
+          style={ {
             display: "flex",
             flexDirection: "column",
             gap: "10px",
@@ -73,31 +77,31 @@ const PublicRoute = () => {
             alignItems: "center",
             margin: "0px",
             paddingTop: "10px",
-          }}
+          } }
         >
-          {mainRoutes.map((menu, index) => {
+          { mainRoutes.map((menu, index) => {
             return (
-              <li key={index}>
+              <li key={ index }>
                 <NavLink
-                  to={menu.to}
-                  exact={true}
-                  style={{
+                  to={ menu.to }
+                  exact={ true }
+                  style={ {
                     textDecoration: "none",
-                  }}
-                  activeStyle={{ color: "blue", fontWeight: "bold" }}
+                  } }
+                  activeStyle={ { color: "blue", fontWeight: "bold" } }
                 >
-                  {menu.name}
+                  { menu.name }
                 </NavLink>
               </li>
             );
-          })}
+          }) }
           <li>
             <NavLink
-              to={"/"}
-              onClick={onLogOut}
-              style={{
+              to={ "/" }
+              onClick={ onLogOut }
+              style={ {
                 textDecoration: "none",
-              }}
+              } }
             >
               Logout
             </NavLink>
@@ -105,38 +109,38 @@ const PublicRoute = () => {
         </ul>
       </nav>
       {/* A <Switch> looks through its children <Route>s and
-        renders the first one that matches the current URL. */}
+       renders the first one that matches the current URL. */ }
       <div
-        style={{
+        style={ {
           flex: 1,
-        }}
+        } }
       >
         <Switch>
           <Route path="/" exact>
-            <Home />
+            <Home/>
           </Route>
 
           <Route path="/about">
-            <About />
+            <About/>
           </Route>
 
           <Route path="/users">
-            <Users />
+            <Users/>
           </Route>
 
           <Route path="/chats">
-            <Chats />
+            <Chats/>
           </Route>
 
           <Route path="/userlist">
-            <UserList />
+            <UserList/>
           </Route>
 
           <Route path="/todo">
-            <TodoList />
+            <TodoList/>
           </Route>
 
-          <Route path={`*`} exact>
+          <Route path={ `*` } exact>
             <div>Page Not Found</div>
           </Route>
         </Switch>

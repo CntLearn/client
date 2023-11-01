@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
-import { Intent, Button } from "@blueprintjs/core";
-import ShowList from "./ShowList";
-import Cruds from "./Cruds";
+import { Intent, Button }               from "@blueprintjs/core";
+import ShowList                         from "./ShowList";
+import Cruds                            from "./Cruds";
 
 const array = [
   { id: 1, username: "zain 1", email: "zain@gmail.com" },
@@ -39,10 +39,10 @@ const Add_Edit = () => {
         return {
           ...list,
           actions: (
-            <div key={list.id}>
+            <div key={ list.id }>
               <Button
-                intent={Intent.PRIMARY}
-                onClick={() => {
+                intent={ Intent.PRIMARY }
+                onClick={ () => {
                   setState((prev) => {
                     return {
                       ...prev,
@@ -51,14 +51,14 @@ const Add_Edit = () => {
                     };
                   });
                   console.log("calling edit");
-                }}
+                } }
               >
                 Edit
               </Button>
               <Button
-                intent={Intent.SUCCESS}
-                style={{ margin: "0px 10px" }}
-                onClick={() => {
+                intent={ Intent.SUCCESS }
+                style={ { margin: "0px 10px" } }
+                onClick={ () => {
                   setState((prev) => {
                     return {
                       ...prev,
@@ -67,13 +67,13 @@ const Add_Edit = () => {
                     };
                   });
                   console.log("calling view");
-                }}
+                } }
               >
                 View
               </Button>
               <Button
-                intent={Intent.DANGER}
-                onClick={() => {
+                intent={ Intent.DANGER }
+                onClick={ () => {
                   setState((prev) => {
                     return {
                       ...prev,
@@ -82,7 +82,7 @@ const Add_Edit = () => {
                     };
                   });
                   console.log("calling delete");
-                }}
+                } }
               >
                 Delete
               </Button>
@@ -120,7 +120,8 @@ const Add_Edit = () => {
             username: username,
             email: email,
           };
-        } else {
+        }
+        else {
           return list;
         }
       });
@@ -154,22 +155,25 @@ const Add_Edit = () => {
   };
   return (
     <div
-      style={{
+      style={ {
         width: "1000px",
         margin: "auto",
         marginTop: "10px",
-      }}
+      } }
     >
-      <ShowList tableData={tableData} onChangeState={onChangeState} />
+      <ShowList tableData={ tableData } onChangeState={ onChangeState }/>
 
-      <Cruds
-        parentState={state}
-        list={tableData}
-        onClose={onCloseCrud}
-        onSave={onSave}
-        onUpdate={onUpdate}
-        onDelete={onDelete}
-      />
+      {
+        <Cruds
+          parentState={ state }
+          list={ tableData }
+          onClose={ onCloseCrud }
+          onSave={ onSave }
+          onUpdate={ onUpdate }
+          onDelete={ onDelete }
+        />
+      }
+
     </div>
   );
 };

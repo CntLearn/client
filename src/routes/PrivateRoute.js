@@ -1,7 +1,14 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
-import { Login, SignUp } from "../components";
+import React, { useEffect } from "react";
+import { useSelector }                  from 'react-redux';
+import { Switch, Route,useHistory } from "react-router-dom";
+import { Login, SignUp }                from "../components";
 const PrivateRoute = () => {
+  const auth = useSelector((state)=>state.auth.isLogin);
+  const history = useHistory();
+
+  useEffect(()=>{
+    if(!auth) history.push('/');
+  },[])
   return (
     <div
       style={{
