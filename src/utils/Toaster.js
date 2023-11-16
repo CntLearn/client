@@ -1,11 +1,12 @@
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function Toaster(message, type, autoClose = 2000) {
+function Toaster(message, type='default', autoClose = 2000) {
   toast[type](message, {
     position: "top-right",
     autoClose: autoClose,
     newestOnTop: true,
+    theme:'light'
   });
 };
 export default Toaster;

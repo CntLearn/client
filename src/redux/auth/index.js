@@ -1,9 +1,10 @@
 import authReducer       from './reducer';
-import { login,registerUser, logout } from './actions';
+import { login,registerUser, logout, updateUserData } from './actions';
 
 export {
   login,
   registerUser,
-  logout
+  logout,
+  updateUserData
 }
 export default authReducer;

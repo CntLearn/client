@@ -1,4 +1,4 @@
-import * as todoActionTypes from './actionTypes';
+import * as todoActionTypes    from './actionTypes';
 
 const initialState = {
   todos: [],
@@ -7,6 +7,12 @@ const initialState = {
 
 export default function todoReducer(state = initialState, action) {
   switch (action.type) {
+    case todoActionTypes.FETCH_ALL_TODO_SUCCESS: {
+      return {
+        ...state,
+        todos: [...action.payload]
+      }
+    }
     case todoActionTypes.ADD_TODO_SUCCESS:
       return {
         ...state,
@@ -17,7 +23,18 @@ export default function todoReducer(state = initialState, action) {
         ...state,
         currentTodo: action.payload
       }
-
+    case todoActionTypes.REMOVE_TODO_SUCCESS: {
+      return {
+        ...state,
+        todos: [...action.payload]
+      }
+    }
+    case todoActionTypes.UPDATE_TODO_SUCCESS: {
+      return {
+        ...state,
+        todos: [...action.payload]
+      }
+    }
     default:
       return state
   }

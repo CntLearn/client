@@ -1,6 +1,7 @@
 import * as authActionTypes from './actionTypes';
 
 let authInitialState = {
+  id: '',
   email: '',
   firstName: '',
   lastName: '',
@@ -9,13 +10,12 @@ let authInitialState = {
   about: '',
   lastSeen: '',
   lastMessage: '',
-  isLogin: !!JSON.parse(localStorage.getItem('user'))?.token
+  isLogin: false
 }
 
-authInitialState = { ...authInitialState, ...JSON.parse(localStorage.getItem('user')) }
 
-console.log('auth state : ', authInitialState)
 export default function authReducer(state = authInitialState, action) {
+
   switch (action.type) {
     case authActionTypes.LOGIN_SUCCESS:
       return {
@@ -30,8 +30,7 @@ export default function authReducer(state = authInitialState, action) {
 
     case authActionTypes.LOGOUT_SUCCESS:
       return {
-        ...state,
-        ...authInitialState
+        state: action.payload
       }
     default:
       return state;

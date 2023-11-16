@@ -8,9 +8,15 @@ const registerUser = (user) => {
 }
 
 const login = (user) => {
-  return customAxios.post('/users/login', user);
+  return axios.post(`${ baseUrl }/users/login`, user);
 }
+
+const fetchAll = () => {
+  return customAxios.get('/users')
+}
+
 export {
   registerUser,
-  login
+  login,
+  fetchAll
 }

@@ -12,15 +12,14 @@ const login = (user) => {
           return false;
         }
         let { token, user } = res.data.data;
-        user = { ...user, token }
+        user = { ...user, token, isLogin: true }
         Toaster('Successfully Logged in', 'success');
         localStorage.setItem('user', JSON.stringify(user))
 
         dispatch({
           type: authActionTypes.LOGIN_SUCCESS,
           payload: {
-            ...user,
-            isLogin: !!JSON.parse(localStorage.getItem('user')).token
+            ...user
           }
         })
         return true;
@@ -50,14 +49,27 @@ const registerUser = (user) => {
 }
 
 const logout = () => {
+  Toaster('Successfully Logged Out.', 'success', 2000)
   return {
     type: authActionTypes.LOGOUT_SUCCESS,
     payload: {}
   }
 }
 
+const updateUserData = (user) => {
+  return (dispatch) => {
+    dispatch({
+      type: authActionTypes.LOGIN_SUCCESS,
+      payload: {
+        ...user
+      }
+    })
+  }
+}
+
 export {
   login,
   registerUser,
-  logout
+  logout,
+  updateUserData
 }

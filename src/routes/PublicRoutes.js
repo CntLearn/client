@@ -34,8 +34,8 @@ const mainRoutes = [
     name: "User List",
   },
   {
-    to: "/todo",
-    name: "Todo",
+    to: "/jira",
+    name: "Jira Clone",
   },
   {
     to: "/test",
@@ -136,7 +136,7 @@ const PublicRoute = () => {
             <UserList/>
           </Route>
 
-          <Route path="/todo">
+          <Route path="/jira">
             <TodoList/>
           </Route>
 

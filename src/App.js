@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Provider }                   from 'react-redux';
 import store                          from './redux'
-import { ToastContainer }             from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, Slide }             from 'react-toastify';
 import io                             from "socket.io-client";
 // import "./App.css";
-// import AppRoutes from "./routes";
 import RoutesV5                       from "./routes/V5Routes";
 import { AuthProvider }               from "./contexts/authContext";
 import { MessagesProvider }           from "./contexts/messagesContext";
@@ -37,7 +35,9 @@ function App() {
         </AuthProvider>
       </Provider>
 
-      <ToastContainer/>
+      <ToastContainer
+      transition={Slide}
+      />
 
     </React.Fragment>
 
