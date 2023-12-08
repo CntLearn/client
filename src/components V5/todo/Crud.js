@@ -6,13 +6,20 @@ import {
   InputGroup,
   Button,
   Intent,
-  TextArea
+  TextArea,
+  Classes,
+  Popover, Position
 }                                     from '@blueprintjs/core';
+import { DatePicker3, DateInput3 }    from "@blueprintjs/datetime2";
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector }   from 'react-redux';
 import Select                         from 'react-select';
 import { fetchAll }                   from '../../redux/users';
 import moment                         from 'moment';
+import { tasksStatus, priorityList }  from './utils';
+// import '@blueprintjs/datetime/lib/css/blueprint-datetime.css';
+
+import '@blueprintjs/core/lib/css/blueprint.css';
 
 const initialState = {
   title: '',
@@ -35,26 +42,10 @@ const initialState = {
   start_date: '',
   end_date: '',
   subTasks: [],
-  test: moment(new Date()).format('dddd, MMMM D YYYY')
+  test: moment(new Date()).format('dddd, MMMM D YYYY'),
+  date: new Date(),
 }
-
-const tasksStatus = [
-  { value: 'todo', label: 'Todo' },
-  { value: 'inProgress', label: 'In Progress' },
-  { value: 'codeReview', label: 'Code Review' },
-  { value: 'deployedForTesting', label: 'Deployed For Testing' },
-  { value: 'testing', label: 'Testing' },
-  { value: 'done', label: 'Done' },
-  { value: 'released', label: 'Released' }
-];
-
-const priorityList = [
-  { value: '', label: 'Select Priority' },
-  { value: 'low', label: 'Low' },
-  { value: 'high', label: 'High' },
-  { value: 'medium', label: 'Medium' },
-];
-
+// 600, , 80*60
 const Crud = (props) => {
   const [state, setState] = useState(initialState);
   const dispatch = useDispatch()
@@ -67,7 +58,6 @@ const Crud = (props) => {
 
   useEffect(() => {
     if (props.parentState.mode === 'edit') {
-      console.log('current : ', props.parentState.currentTodo)
       const editObj = {
         ...props.parentState.currentTodo,
         status: tasksStatus.find(t => t.value === props.parentState.currentTodo.status),
@@ -173,6 +163,119 @@ const Crud = (props) => {
                 />
               </div>
             </FormGroup>
+
+            {/*<DateInput3*/ }
+            {/*// dateFnsFormat={'MM/dd/yyyy'}*/ }
+            {/*locale={DateInput3.defaultProps.locale}*/ }
+            {/*popoverProps={{ placement: "top" }}*/ }
+            {/*/>*/ }
+
+            {
+              /// DateInput3
+            }
+
+            <div style={ { display: "flex", flexDirection: "column" } }>
+              <b> Date</b>
+              <Popover
+                onInteraction={ isDateTimeOpen => {
+                  setState({ ...state, isDateTimeOpen })
+                } }
+                // isOpen={ true }
+                isOpen={ state?.isDateTimeOpen }
+                fill={ true }
+                position={ Position.RIGHT_TOP }
+              >
+
+                <InputGroup
+                  value={ state.date ? state.date : '' }
+                  onChange={ () => setState({ ...state, isDateTimeOpen: true }) }
+                  fill={ true }
+                />
+                {/*
+                 <DateInput3
+                 date={new Date()}
+                 label={'Date to click'}
+                 maxDate={new Date(2050, 1, 1)}
+                 minDate={new Date(1950, 1, 1)}
+                 style={ {
+                 height: "2rem",
+                 } }
+                 parseDate={ (str) => new Date(str) }
+                 formatDate={ (date) => date.toLocaleString() }
+                 value={ state.date }
+                 onChange={ (e) => {
+                 console.log('eeee: ', e)
+                 if (moment(e).format("YYYY-MM-DD") !== "Invalid date") {
+                 setState(prevState => {
+                 return {
+                 ...prevState,
+                 date: e
+                 }
+                 })
+                 }
+                 } }
+                 />
+                 */
+                }
+
+
+                <DatePicker3
+                  style={ {
+                    height: "2rem",
+                  } }
+                  className={ Classes.ELEVATION_3 }
+                  timePickerProps={ { useAmPm: true, showArrowButtons: true } }
+                  dayPickerProps={ { showOutsideDays: true, showWeekNumber: true } }
+                  showTimeArrowButtons={ true }
+                  onChange={ (e) => {
+                    console.log('eeee: ', e)
+                    if (moment(e).format("YYYY-MM-DD") !== "Invalid date") {
+                      setState(prevState => {
+                        return {
+                          ...prevState,
+                          date: moment(e).format('DD-MM-YYYY hh:mm:ss a'),
+                          isDateTimeOpen:false
+                        }
+                      })
+                    }
+                  } }
+                />
+
+              </Popover>
+
+            </div>
+
+            {
+              ////
+            }
+
+            {
+              /*
+               <DatePicker3
+               // dateFnsFormat={'MM/dd/yyyy'}
+               locale={ DateInput3.defaultProps.locale }
+               // dateFnsLocaleLoader={}
+               className={ Classes.ELEVATION_4 }
+               timePickerProps={ { useAmPm: true, showArrowButtons: true } }
+               dayPickerProps={ { showOutsideDays: true, showWeekNumber: true } }
+               showTimeArrowButtons={ true }
+               style={ {
+               padding: '20px'
+               } }
+               onChange={ (e) => {
+               console.log('eeee: ', e)
+               if (moment(e).format("YYYY-MM-DD") !== "Invalid date") {
+               setState(prevState => {
+               return {
+               ...prevState,
+               date: e
+               }
+               })
+               }
+               } }
+               />
+               */
+            }
 
             <FormGroup
               label="Description"

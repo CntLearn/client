@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@blueprintjs/core": "^4.20.1",
+    "@blueprintjs/datetime2": "^2.2.4",
     "@blueprintjs/select": "^4.9.22",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
